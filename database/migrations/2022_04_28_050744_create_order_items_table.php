@@ -15,8 +15,9 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->string('parcel_name')->nullable();
-            $table->string('width_height');
+            $table->string('parcel_name');
+            $table->string('width');
+            $table->string('height');
             $table->string('weight');
             $table->string('order_id');
             $table->string('category_id');

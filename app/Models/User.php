@@ -25,11 +25,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
         'email',
         'birth',
         'gender',
-        'phone',
+        'tel',
         'password',
+        'profile'
     ];
 
     /**
@@ -61,4 +63,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function providers(){
+        return $this->hasMany(Provider::class, 'user_id', 'id');
+    }
 }

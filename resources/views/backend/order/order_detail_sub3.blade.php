@@ -1,4 +1,4 @@
-@extends('admin.admin_master2')
+@extends('admin.admin_master_branch3')
 @section('admin')
 
 
@@ -133,14 +133,14 @@
                             <th></th>
                             <th>
                                 @if ($order->status == 'Pending')
-                                    <a href="{{route('pendingToConfirmed', $order->id)}}" class="btn btn-block btn-success" id="confirm">Confirm Order</a>
+                                    <a href="{{route('pendingToConfirmed3', $order->id)}}" class="btn btn-block btn-success" id="confirm">Confirm Order</a>
                                 
                                 @elseif ($order->status == 'Confirmed')
-                                    <a href="{{route('ConfirmedToProcessing', $order->id)}}" class="btn btn-block btn-success" id="processing">Processing Order</a>
+                                    <a href="{{route('ConfirmedToProcessing3', $order->id)}}" class="btn btn-block btn-success" id="processing">Processing Order</a>
                                 @elseif ($order->status == 'Processing')
-                                    <a href="{{route('ProcessingToArrived', $order->id)}}" class="btn btn-block btn-success" id="picked">Arrived Order</a>
+                                    <a href="{{route('ProcessingToArrived3', $order->id)}}" class="btn btn-block btn-success" id="picked">Arrived Order</a>
                                 @elseif ($order->status == 'Arrived')
-                                    <a href="{{route('ArrivedToPicked', $order->id)}}" class="btn btn-block btn-success" id="picked">Pick Order</a>
+                                    <a href="{{route('ArrivedToPicked3', $order->id)}}" class="btn btn-block btn-success" id="picked">Pick Order</a>
                                 @endif
                             </th>
                         </tr>
@@ -188,10 +188,10 @@
                                     <label for=""> {{ $item->parcel_name }} </label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> {{ $item->width }} </label>
+                                    <label for=""> {{ $item->width}} </label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> {{ $item->height }} </label>
+                                    <label for=""> {{ $item->height}} </label>
                                 </td>
                                 <td class="col-md-2">
                                     <label for=""> {{ $item->weight }} </label>

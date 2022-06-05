@@ -31,7 +31,8 @@ class OrdersController extends Controller
             $orderItem->category_id = $item['category_id'];
             $orderItem->parcel_name = $item['parcel_name'];
             $orderItem->weight = $item['weight'];
-            $orderItem->width_height = $item['width_height'];
+            $orderItem->width = $item['width'];
+            $orderItem->height = $item['height'];
             $orderItem->save();
         }
 

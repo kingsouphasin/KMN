@@ -30,7 +30,7 @@
                                 <th>Time </th>
 								<th>User</th>
 								<th>Email</th>
-								<th>Destination_branch</th>
+								<th>Original_branch</th>
 								<th>Status</th>
                                 <th>Actions</th>
 							</tr>
@@ -44,7 +44,7 @@
         <td> {{ $item->created_at }}  </td>
 		<td> {{ $item->user->name }} </td>
         <td> {{ $item->user->email }} </td>
-        <td> {{ $item->destination->name }} </td>
+        <td> {{ $item->original->name }} </td>
         <td> <span class="badge badge-pill badge-primary">{{ $item->status }}</span> </td>
 
 		<td width="25%">

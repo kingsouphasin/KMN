@@ -215,6 +215,34 @@ class OrderController extends Controller
 
         return view('backend.order.admin2_view.orderPicked_view2', compact('branch1'));
     }
+
+    // Status for Admin Branch3 - from Original Branch
+    public function PendingAdmin3(){
+        $branch1 = Order::where('original_branch', '3')->where('status', 'Pending')->get();
+
+        return view('backend.order.admin3_view.order_view3', compact('branch1'));
+    }
+    public function ConfirmedAdmin3(){
+        $branch1 = Order::where('original_branch', '3')->where('status', 'Confirmed')->get();
+
+        return view('backend.order.admin3_view.orderConfirmed_view3', compact('branch1'));
+    }
+    public function ProcessingAdmin3(){
+        $branch1 = Order::where('destination_branch', '3')->where('status', 'Processing')->get();
+
+        return view('backend.order.admin3_view.orderProcessing_view3', compact('branch1'));
+    }
+    public function ArrivedAdmin3(){
+        $branch1 = Order::where('destination_branch', '3')->where('status', 'Arrived')->get();
+
+        return view('backend.order.admin3_view.orderArrived_view3', compact('branch1'));
+    }
+    public function PickedAdmin3(){
+        $branch1 = Order::where('destination_branch', '3')->where('status', 'Picked')->get();
+
+        return view('backend.order.admin3_view.orderPicked_view3', compact('branch1'));
+    }
+
     // Update Status Sub Admin Branch 
     public function pendingToConfirmed1($id){
         $order = Order::find($id)->update([
@@ -314,6 +342,56 @@ class OrderController extends Controller
         return redirect()->route('ArrivedAdmin2')->with($notification);
     }
 
+    // update status branch3
+    public function pendingToConfirmed3($id){
+        $order = Order::find($id)->update([
+            'confirmed_date' => Carbon::now(),
+            'status' => 'Confirmed'
+        ]);
+        $notification = array(
+            'message' => 'Order Confirm Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('PendingAdmin3')->with($notification);
+    }
+    public function ConfirmedToProcessing3($id){
+        $order = Order::find($id)->update([
+            'processing_date' => Carbon::now(),
+            'status' => 'Processing'
+        ]);
+        $notification = array(
+            'message' => 'Order Processing Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('ConfirmedAdmin3')->with($notification);
+    }
+    public function ProcessingToArrived3($id){
+        $order = Order::find($id)->update([
+            'arrvied_date' => Carbon::now(),
+            'status' => 'Arrived'
+        ]);
+        $notification = array(
+            'message' => 'Order Arrived Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('ProcessingAdmin3')->with($notification);
+    }
+    public function ArrivedToPicked3($id){
+        $order = Order::find($id)->update([
+            'picked_date' => Carbon::now(),
+            'status' => 'Picked'
+        ]);
+        $notification = array(
+            'message' => 'Order Picked Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('ArrivedAdmin3')->with($notification);
+    }
+
     // order Detail && Sub Detail
     public function detail($id){
         $order = Order::find($id);
@@ -335,5 +413,12 @@ class OrderController extends Controller
         $recipient = Recipient::find($order->recipient_id);
 
         return view('backend.order.order_detail_sub2',  compact('order', 'orderItem', 'recipient'));
+    }
+    public function sub_detail3($id){
+        $order = Order::find($id);
+        $orderItem = OrderItem::with('order')->where('order_id', $id)->orderBy('id', 'ASC')->get();
+        $recipient = Recipient::find($order->recipient_id);
+
+        return view('backend.order.order_detail_sub3',  compact('order', 'orderItem', 'recipient'));
     }
 }

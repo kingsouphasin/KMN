@@ -1,4 +1,4 @@
-@extends('admin.admin_master_branch2')
+@extends('admin.admin_master_branch3')
 @section('admin')
 
 
@@ -30,7 +30,7 @@
                                 <th>Time </th>
 								<th>User</th>
 								<th>Email</th>
-								<th>Original_branch</th>
+								<th>Destination_branch</th>
 								<th>Status</th>
                                 <th>Actions</th>
 							</tr>
@@ -44,11 +44,11 @@
         <td> {{ $item->created_at }}  </td>
 		<td> {{ $item->user->name }} </td>
         <td> {{ $item->user->email }} </td>
-        <td> {{ $item->original->name }} </td>
+        <td> {{ $item->destination->name }} </td>
         <td> <span class="badge badge-pill badge-primary">{{ $item->status }}</span> </td>
 
 		<td width="25%">
- 			<a href="{{route('sub_detail2',$item->id)}}" class="btn btn-info" title="View"><i class="fa fa-eye"></i> </a>
+ 			<a href="{{route('sub_detail3',$item->id)}}" class="btn btn-info" title="View"><i class="fa fa-eye"></i> </a>
 		</td>
 							 
 	 </tr>

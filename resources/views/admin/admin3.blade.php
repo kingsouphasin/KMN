@@ -1,4 +1,4 @@
-@extends('admin.admin_master')
+@extends('admin.admin_master_branch3')
 @section('admin')
 
     <div class="container-full">

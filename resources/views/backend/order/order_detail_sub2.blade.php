@@ -1,4 +1,4 @@
-@extends('admin.admin_master')
+@extends('admin.admin_master_branch2')
 @section('admin')
 
 
@@ -164,7 +164,10 @@
                                     <label for=""> Parcel Name </label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> Width & Height </label>
+                                    <label for=""> Width </label>
+                                </td>
+                                <td class="col-md-2">
+                                    <label for=""> Height </label>
                                 </td>
                                 <td class="col-md-2">
                                     <label for=""> Weight </label>
@@ -185,7 +188,10 @@
                                     <label for=""> {{ $item->parcel_name }} </label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> {{ $item->width_height }} </label>
+                                    <label for=""> {{ $item->width }} </label>
+                                </td>
+                                <td class="col-md-2">
+                                    <label for=""> {{ $item->height }} </label>
                                 </td>
                                 <td class="col-md-2">
                                     <label for=""> {{ $item->weight }} </label>

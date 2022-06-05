@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\apiController\ConditionController;
+use App\Http\Controllers\apiController\LoginController;
 use App\Http\Controllers\apiController\OrdersController;
 use App\Http\Controllers\apiController\RecipientController;
 use App\Http\Controllers\AuthController;
@@ -29,12 +30,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Socialite Login
+Route::get('socialite/login', [LoginController::class, 'socialite']);
+
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // User Information
     Route::get('/user/show/{id}', [AuthController::class, 'show']);
     Route::post('/user/edit/{id}', [AuthController::class, 'edit']);
-    Route::post('/user/profile', [AuthController::class, 'profile']);
+
 
 
     // Order & OrderItem

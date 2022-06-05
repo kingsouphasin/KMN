@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 class RecipientController extends Controller
 {
     public function insert(Request $request){
+
+        $request->validate([
+            'recipient_name' => 'required|string',
+            'recipient_surname' => 'required|string',
+            'recipient_tel' => 'required|string',
+            'recipient_address' => 'required|string',
+        ]);
         $recipient = new Recipient();
         $recipient->name = $request->recipient_name;
         $recipient->surname = $request->recipient_surname;
@@ -16,7 +23,7 @@ class RecipientController extends Controller
         $recipient->address = $request->recipient_address;
         $recipient->save();
 
-        return response('success', 200);
+        return response('successful', 200);
     }
     public function show($id){
         $recipient = Recipient::find($id);
