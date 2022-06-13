@@ -41,7 +41,8 @@ class OrdersController extends Controller
 
     }
     public function show($id){
-        return new OrderResource(Order::find($id));
+        // return new OrderResource(Order::find($id));
+        return OrderResource::collection(Order::where("user_id", $id)->get());
     }
     public function delete($id){
         Order::destroy($id);
