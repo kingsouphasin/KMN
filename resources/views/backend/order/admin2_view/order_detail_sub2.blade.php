@@ -1,4 +1,4 @@
-@extends('admin.admin_master2')
+@extends('admin.admin_master')
 @section('admin')
 
 
@@ -50,7 +50,7 @@
                         </tr>
                     </table>
                 </div>
-         
+                
                 {{-- Sender --}}
                 <div class="box box-bordered border-primary">
                     <div class="box-header with-border">
@@ -122,7 +122,7 @@
                     <table class="table">
                         <tr>
                             <th>Invoice ID : </th>
-                            <th class="text-danger">{{ $order->invoice_id }} </th>
+                            <th class="text-danger">{{ $order->invoice_id}} </th>
                         </tr>
                         <tr>
                             <th>Original Branch : </th>
@@ -166,7 +166,16 @@
                         <tr>
                             <th></th>
                             <th>
+                                @if ($order->status == 'Pending')
+                                    <a href="{{route('pendingToConfirmed2', $order->id)}}" class="btn btn-block btn-success" id="confirm">Confirm Order</a>
                                 
+                                @elseif ($order->status == 'Confirmed')
+                                    <a href="{{route('ConfirmedToProcessing2', $order->id)}}" class="btn btn-block btn-success" id="processing">Processing Order</a>
+                                @elseif ($order->status == 'Processing')
+                                    <a href="{{route('ProcessingToArrived2', $order->id)}}" class="btn btn-block btn-success" id="picked">Arrived Order</a>
+                                @elseif ($order->status == 'Arrived')
+                                    <a href="{{route('ArrivedToPicked2', $order->id)}}" class="btn btn-block btn-success" id="picked">Pick Order</a>
+                                @endif
                             </th>
                         </tr>
 
@@ -180,9 +189,8 @@
                 <div class="box box-bordered border-primary">
                     
                     <div class="box-header with-border">
-                        <h4 class="box-title"><strong>Order Items </strong></h4>
+                        <h4 class="box-title"><strong>Order Items</strong></h4>
                     </div>
-                    
                     <table class="table">
                         <tbody>
                             <tr>
@@ -191,15 +199,21 @@
                                     <label for=""> Parcel Name </label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> Width + Height</label>
+                                    <label for=""> Width + Height </label>
                                 </td>
-             
+                            
                                 <td class="col-md-2">
                                     <label for=""> Weight </label>
                                 </td>
+                               
                                 <td class="col-md-1">
                                     <label for=""> Category </label>
                                 </td>
+                                @if ($order->status == 'Pending')
+                                    <td class="col-md-1">
+                                    <label for=""> Edit </label>
+                                </td>
+                                @endif
                                 
                             </tr>
 
@@ -212,19 +226,23 @@
                                 <td class="col-md-2">
                                     <label for=""> {{ $item->width_height }} </label>
                                 </td>
-                               
+                        
                                 <td class="col-md-2">
                                     <label for=""> {{ $item->weight }} </label>
                                 </td>
+                                
                                 <td class="col-md-2">
                                     <label for=""> {{ $item->categories->name}} </label>
                                 </td>
-                               
+                                
+                                @if ($order->status == 'Pending')
+                                    <td>
+                                        <a href="{{route('SubAdmin_Edit_view_branch2', $item->id)}}" class="btn btn-info" title="Edit Data" ><i class="fa fa-pencil"></i> </a>
+                                    </td>
+                                @endif
+                                
                             </tr>
-                            
                             @endforeach
-            
-                    
 
 
                         </tbody>

@@ -4,10 +4,12 @@ use App\Http\Controllers\apiController\ConditionController;
 use App\Http\Controllers\apiController\LoginController;
 use App\Http\Controllers\apiController\OrdersController;
 use App\Http\Controllers\apiController\RecipientController;
+use App\Http\Controllers\apiController\SenderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WeightController;
+use App\Models\Sender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +55,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/recipient/show/{id}', [RecipientController::class, 'show']);
     Route::post('recipient/edit/{id}', [RecipientController::class, 'edit']);
     Route::post('/recipient/delete/{id}', [RecipientController::class, 'delete']);
+
+    // Sender
+    Route::post('/sender/insert', [SenderController::class, 'insert']);
+    Route::get('/sender/show/{id}', [SenderController::class, 'show']);
+    Route::post('sender/edit/{id}', [SenderController::class, 'edit']);
+    Route::post('/sender/delete/{id}', [SenderController::class, 'delete']);
 
     // Condition
     Route::get('/condition', [ConditionController::class, 'show']);

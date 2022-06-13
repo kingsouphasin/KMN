@@ -169,35 +169,72 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
             Route::get('/picked/admin3', [OrderController::class, 'PickedAdmin3'])->name('PickedAdmin3');
 
             // Update Status Pending To Confirmed
-            Route::get('/status/comfirmed/{id}', [OrderController::class, 'pendingToConfirmed'])->name('pendingToConfirmed');
+            Route::get('/status/comfirmed/branch1/{id}', [OrderController::class, 'pendingToConfirmed_branch1'])->name('pendingToConfirmed_branch1');
+            Route::get('/status/comfirmed/branch2/{id}', [OrderController::class, 'pendingToConfirmed_branch2'])->name('pendingToConfirmed_branch2');
+            Route::get('/status/comfirmed/branch3/{id}', [OrderController::class, 'pendingToConfirmed_branch3'])->name('pendingToConfirmed_branch3');
             Route::get('/status/comfirmed1/{id}', [OrderController::class, 'pendingToConfirmed1'])->name('pendingToConfirmed1');
             Route::get('/status/comfirmed2/{id}', [OrderController::class, 'pendingToConfirmed2'])->name('pendingToConfirmed2');
             Route::get('/status/comfirmed3/{id}', [OrderController::class, 'pendingToConfirmed3'])->name('pendingToConfirmed3');
 
             // Update Status Confirmed To Processing
-            Route::get('/status/processing/{id}', [OrderController::class, 'ConfirmedToProcessing'])->name('ConfirmedToProcessing');
+            Route::get('/status/processing/branch1/{id}', [OrderController::class, 'ConfirmedToProcessing_branch1'])->name('ConfirmedToProcessing_branch1');
+            Route::get('/status/processing/branch2/{id}', [OrderController::class, 'ConfirmedToProcessing_branch2'])->name('ConfirmedToProcessing_branch2');
+            Route::get('/status/processing/branch3/{id}', [OrderController::class, 'ConfirmedToProcessing_branch3'])->name('ConfirmedToProcessing_branch3');
             Route::get('/status/processing1/{id}', [OrderController::class, 'ConfirmedToProcessing1'])->name('ConfirmedToProcessing1');
             Route::get('/status/processing2/{id}', [OrderController::class, 'ConfirmedToProcessing2'])->name('ConfirmedToProcessing2');
             Route::get('/status/processing3/{id}', [OrderController::class, 'ConfirmedToProcessing3'])->name('ConfirmedToProcessing3');
 
             // Update Status Processing To Arrived
-            Route::get('/status/arrived/{id}', [OrderController::class, 'ProcessingToArrived'])->name('ProcessingToArrived');
+            Route::get('/status/arrived/branch1/{id}', [OrderController::class, 'ProcessingToArrived_branch1'])->name('ProcessingToArrived_branch1');
+            Route::get('/status/arrived/branch2/{id}', [OrderController::class, 'ProcessingToArrived_branch2'])->name('ProcessingToArrived_branch2');
+            Route::get('/status/arrived/branch3/{id}', [OrderController::class, 'ProcessingToArrived_branch3'])->name('ProcessingToArrived_branch3');
             Route::get('/status/arrived1/{id}', [OrderController::class, 'ProcessingToArrived1'])->name('ProcessingToArrived1');
             Route::get('/status/arrived2/{id}', [OrderController::class, 'ProcessingToArrived2'])->name('ProcessingToArrived2');
             Route::get('/status/arrived3/{id}', [OrderController::class, 'ProcessingToArrived3'])->name('ProcessingToArrived3');
 
             // Update Status Processing To Arrived
-            Route::get('/status/picked/{id}', [OrderController::class, 'ArrivedToPicked'])->name('ArrivedToPicked');
+            Route::get('/status/picked/branch1/{id}', [OrderController::class, 'ArrivedToPicked_branch1'])->name('ArrivedToPicked_branch1');
+            Route::get('/status/picked/branch2/{id}', [OrderController::class, 'ArrivedToPicked_branch2'])->name('ArrivedToPicked_branch2');
+            Route::get('/status/picked/branch3/{id}', [OrderController::class, 'ArrivedToPicked_branch3'])->name('ArrivedToPicked_branch3');
             Route::get('/status/picked1/{id}', [OrderController::class, 'ArrivedToPicked1'])->name('ArrivedToPicked1');
             Route::get('/status/picked2/{id}', [OrderController::class, 'ArrivedToPicked2'])->name('ArrivedToPicked2');
             Route::get('/status/picked3/{id}', [OrderController::class, 'ArrivedToPicked3'])->name('ArrivedToPicked3');
 
-            // Detail && Detail for sub Admin
-            Route::get('/detail/{id}', [OrderController::class, 'detail'])->name('detail');
+            // Detail Admin && Detail for sub Admin
+                // Admin
+            Route::get('/detail/{id}', [OrderController::class, 'detail_viewAll_branch'])->name('detail');
+            Route::get('/detail/branch1/{id}', [OrderController::class, 'detail_branch1'])->name('detail_branch1');
+            Route::get('/detail/branch2/{id}', [OrderController::class, 'detail_branch2'])->name('detail_branch2');
+            Route::get('/detail/branch3/{id}', [OrderController::class, 'detail_branch3'])->name('detail_branch3');
+                // end Admin
             Route::get('/detail-sub/{id}', [OrderController::class, 'sub_detail'])->name('sub_detail');
             Route::get('/detail-sub2/{id}', [OrderController::class, 'sub_detail2'])->name('sub_detail2');
             Route::get('/detail-sub3/{id}', [OrderController::class, 'sub_detail3'])->name('sub_detail3');
         });
+
+        // OrderItem Edit & Update Admin & Admin_Sub 
+        Route::prefix('orderItem')->group(function(){
+            // branch1
+            Route::get('edit/admin/branch1/{id}', [OrderController::class, 'admin_Edit_view_branch1'])->name('edit_admin_branch1');
+            Route::post('update/admin/branch1/{id}', [OrderController::class, 'admin_update_branch1'])->name('update_admin_branch1');
+            // branch2
+            Route::get('edit/admin/branch2/{id}', [OrderController::class, 'admin_Edit_view_branch2'])->name('edit_admin_branch2');
+            Route::post('update/admin/branch2/{id}', [OrderController::class, 'admin_update_branch2'])->name('update_admin_branch2');
+            // branch3
+            Route::get('edit/admin/branch3/{id}', [OrderController::class, 'admin_Edit_view_branch3'])->name('edit_admin_branch3');
+            Route::post('update/admin/branch3/{id}', [OrderController::class, 'admin_update_branch3'])->name('update_admin_branch3');
+
+            // Edit & Update for SubAdmin
+            Route::get('edit/sub/admin/branch1/{id}', [OrderController::class, 'SubAdmin_Edit_view_branch1'])->name('SubAdmin_Edit_view_branch1');
+            Route::post('update/sub/admin/branch1/{id}', [OrderController::class, 'SubAdmin_update_branch1'])->name('SubAdmin_update_branch1');
+
+            Route::get('edit/sub/admin/branch2/{id}', [OrderController::class, 'SubAdmin_Edit_view_branch2'])->name('SubAdmin_Edit_view_branch2');
+            Route::post('update/sub/admin/branch2/{id}', [OrderController::class, 'SubAdmin_update_branch2'])->name('SubAdmin_update_branch2');
+
+            Route::get('edit/sub/admin/branch3/{id}', [OrderController::class, 'SubAdmin_Edit_view_branch3'])->name('SubAdmin_Edit_view_branch3');
+            Route::post('update/sub/admin/branch3/{id}', [OrderController::class, 'SubAdmin_update_branch3'])->name('SubAdmin_update_branch3');
+        });
     });
+    // Admin main leo mod leo y luea tae sub Admin h update orderItem
 
 }); // Prevent Back Button After Logout

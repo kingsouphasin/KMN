@@ -24,7 +24,7 @@ class AuthController extends Controller
             'email' => $register['email'],
             'password' => bcrypt($register['password']),
             'gender' => $register['gender'],
-            'profile' => "https://firebasestorage.googleapis.com/v0/b/setupios.appspot.com/o/knmProfile%2F08DC83B6-5BF3-4671-90FD-FC8805D1C58A.png?alt=media&token=75ae92e5-1c68-43c0-9637-ceb8c543d088",
+            'profile' => "https://firebasestorage.googleapis.com/v0/b/setupios.appspot.com/o/userprofile%2Flogo-app2.png?alt=media&token=cbbb5e08-2c64-41c8-b8cd-5b3b6726434a ",
             'birth' => $register['birth'],
             'phone' => $register['phone']
         ]);

@@ -47,7 +47,7 @@
         <td> <span class="badge badge-pill badge-primary">{{ $item->status }}</span> </td>
 
 		<td width="25%">
- 			<a href="{{route('detail',$item->id)}}" class="btn btn-info" title="View"><i class="fa fa-eye"></i> </a>
+ 			<a href="{{route('detail_branch2',$item->id)}}" class="btn btn-info" title="View"><i class="fa fa-eye"></i> </a>
 		</td>
 							 
 	 </tr>

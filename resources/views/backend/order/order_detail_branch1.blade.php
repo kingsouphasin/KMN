@@ -1,4 +1,4 @@
-@extends('admin.admin_master_branch2')
+@extends('admin.admin_master2')
 @section('admin')
 
 
@@ -33,25 +33,55 @@
                     </div>
                     <table class="table">
                         <tr>
-                            <th>Shipping Name : </th>
+                            <th>Name : </th>
                             <th>{{ $order->user->name }} </th>
                         </tr>
                         <tr>
-                            <th>Shipping Gender : </th>
+                            <th>Gender : </th>
                             <th>{{ $order->user->gender }} </th>
                         </tr>
                         <tr>
-                            <th>Shipping Phone : </th>
+                            <th>Phone : </th>
                             <th>{{ $order->user->phone }} </th>
                         </tr>
                         <tr>
-                            <th>Shipping Email : </th>
+                            <th>Email : </th>
                             <th>{{ $order->user->email }} </th>
                         </tr>
                     </table>
                 </div>
          
-                
+                {{-- Sender --}}
+                <div class="box box-bordered border-primary">
+                    <div class="box-header with-border">
+                        <h4 class="box-title"><strong>Sender Details</strong></h4>
+                    </div>
+                    <table class="table">
+                    
+                        <tr>
+                            <th>Name : </th>
+                            
+                            <th>{{ $sender->name}}</th>
+                        
+                        </tr>
+                        
+                        <tr>
+                            <th>Surname : </th>
+                            <th>{{ $sender->surname}}</th>
+                        </tr>
+                        <tr>
+                            <th>Tel : </th>
+                            <th>{{ $sender->tel}}</th>
+                        </tr>
+                        <tr>
+                            <th>Address : </th>
+                            <th>{{ $sender->address}}</th>
+                        </tr>
+                        
+                    </table>
+                </div>
+
+                {{-- Recipient --}}
                 <div class="box box-bordered border-primary">
                     <div class="box-header with-border">
                         <h4 class="box-title"><strong>Recipient Details</strong></h4>
@@ -73,6 +103,10 @@
                             <th>Tel : </th>
                             <th>{{ $recipient->tel}}</th>
                         </tr>
+                        <tr>
+                            <th>Address : </th>
+                            <th>{{ $recipient->address}}</th>
+                        </tr>
                         
                     </table>
                 </div>
@@ -83,12 +117,12 @@
             <div class="col-md-6 col-12">
                 <div class="box box-bordered border-primary">
                     <div class="box-header with-border">
-                        <h4 class="box-title"><strong>Order Details </strong><span class="text-danger"> Invoice : {{ $order->id}}</span></h4>
+                        <h4 class="box-title"><strong>Order Details </strong><span class="text-danger"> Invoice {{ $order->invoice_id}}</span></h4>
                     </div>
                     <table class="table">
                         <tr>
-                            <th>Order ID : </th>
-                            <th class="text-danger">{{ $order->id }} </th>
+                            <th>Invoice ID : </th>
+                            <th class="text-danger">{{ $order->invoice_id }} </th>
                         </tr>
                         <tr>
                             <th>Original Branch : </th>
@@ -133,14 +167,14 @@
                             <th></th>
                             <th>
                                 @if ($order->status == 'Pending')
-                                    <a href="{{route('pendingToConfirmed2', $order->id)}}" class="btn btn-block btn-success" id="confirm">Confirm Order</a>
+                                    <a href="{{route('pendingToConfirmed_branch1', $order->id)}}" class="btn btn-block btn-success" id="confirm">Confirm Order</a>
                                 
                                 @elseif ($order->status == 'Confirmed')
-                                    <a href="{{route('ConfirmedToProcessing2', $order->id)}}" class="btn btn-block btn-success" id="processing">Processing Order</a>
+                                    <a href="{{route('ConfirmedToProcessing_branch1', $order->id)}}" class="btn btn-block btn-success" id="processing">Processing Order</a>
                                 @elseif ($order->status == 'Processing')
-                                    <a href="{{route('ProcessingToArrived2', $order->id)}}" class="btn btn-block btn-success" id="picked">Arrived Order</a>
+                                    <a href="{{route('ProcessingToArrived_branch1', $order->id)}}" class="btn btn-block btn-success" id="picked">Arrived Order</a>
                                 @elseif ($order->status == 'Arrived')
-                                    <a href="{{route('ArrivedToPicked2', $order->id)}}" class="btn btn-block btn-success" id="picked">Pick Order</a>
+                                    <a href="{{route('ArrivedToPicked_branch1', $order->id)}}" class="btn btn-block btn-success" id="picked">Pick Order</a>
                                 @endif
                             </th>
                         </tr>
@@ -153,9 +187,11 @@
 
             <div class="col-md-12 col-12">
                 <div class="box box-bordered border-primary">
+                    
                     <div class="box-header with-border">
-                        <h4 class="box-title"><strong>Order Items</strong></h4>
+                        <h4 class="box-title"><strong>Order Items </strong></h4>
                     </div>
+                    
                     <table class="table">
                         <tbody>
                             <tr>
@@ -164,20 +200,20 @@
                                     <label for=""> Parcel Name </label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> Width </label>
+                                    <label for=""> Width + Height</label>
                                 </td>
-                                <td class="col-md-2">
-                                    <label for=""> Height </label>
-                                </td>
+             
                                 <td class="col-md-2">
                                     <label for=""> Weight </label>
-                                </td>
-                                <td class="col-md-2">
-                                    <label for=""> Order_id </label>
                                 </td>
                                 <td class="col-md-1">
                                     <label for=""> Category </label>
                                 </td>
+                                @if ($order->status == 'Pending')
+                                    <td class="col-md-1">
+                                        <label for=""> Edit </label>
+                                    </td>
+                                @endif
                                 
                             </tr>
 
@@ -188,24 +224,26 @@
                                     <label for=""> {{ $item->parcel_name }} </label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> {{ $item->width }} </label>
+                                    <label for=""> {{ $item->width_height }} </label>
                                 </td>
-                                <td class="col-md-2">
-                                    <label for=""> {{ $item->height }} </label>
-                                </td>
+                               
                                 <td class="col-md-2">
                                     <label for=""> {{ $item->weight }} </label>
                                 </td>
                                 <td class="col-md-2">
-                                    <label for=""> {{ $item->order_id }} </label>
+                                    <label for=""> {{ $item->categories->name}} </label>
                                 </td>
-                                <td class="col-md-2">
-                                    <label for=""> {{ $item->category_id}} </label>
-                                </td>
-                                
-                                
+                                @if ($order->status == 'Pending')
+                                    <td>
+                                        {{-- <a href="{{route('edit_admin', $item->id)}}" class="btn btn-info" title="Edit Data" style="width: 10%; margin-left:80%; position:absolute; margin-top:-50px; z-index:10"><i class="fa fa-pencil"></i> </a> --}}
+                                        <a href="{{route('edit_admin_branch1', $item->id)}}" class="btn btn-info" title="Edit Data" ><i class="fa fa-pencil"></i> </a>
+                                    </td>
+                                @endif
                             </tr>
+                            
                             @endforeach
+            
+                    
 
 
                         </tbody>

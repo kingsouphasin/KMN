@@ -32,6 +32,11 @@ class Order extends Model
         return $this->belongsTo(Recipient::class, 'recipient_id', 'id');
     }
 
+    public function sender(){
+        return $this->belongsTo(Sender::class, 'sender_id', 'id');
+    }
+
+
     public function destination(){
         return $this->belongsTo(Branch::class, 'destination_branch', 'id');
     }

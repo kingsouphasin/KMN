@@ -166,7 +166,16 @@
                         <tr>
                             <th></th>
                             <th>
+                                @if ($order->status == 'Pending')
+                                    <a href="{{route('pendingToConfirmed_branch2', $order->id)}}" class="btn btn-block btn-success" id="confirm">Confirm Order</a>
                                 
+                                @elseif ($order->status == 'Confirmed')
+                                    <a href="{{route('ConfirmedToProcessing_branch2', $order->id)}}" class="btn btn-block btn-success" id="processing">Processing Order</a>
+                                @elseif ($order->status == 'Processing')
+                                    <a href="{{route('ProcessingToArrived_branch2', $order->id)}}" class="btn btn-block btn-success" id="picked">Arrived Order</a>
+                                @elseif ($order->status == 'Arrived')
+                                    <a href="{{route('ArrivedToPicked_branch2', $order->id)}}" class="btn btn-block btn-success" id="picked">Pick Order</a>
+                                @endif
                             </th>
                         </tr>
 
@@ -200,6 +209,11 @@
                                 <td class="col-md-1">
                                     <label for=""> Category </label>
                                 </td>
+                                @if ($order->status == 'Pending')
+                                    <td class="col-md-1">
+                                        <label for=""> Edit </label>
+                                    </td>
+                                @endif
                                 
                             </tr>
 
@@ -219,7 +233,12 @@
                                 <td class="col-md-2">
                                     <label for=""> {{ $item->categories->name}} </label>
                                 </td>
-                               
+                                @if ($order->status == 'Pending')
+                                    <td>
+                                        {{-- <a href="{{route('edit_admin', $item->id)}}" class="btn btn-info" title="Edit Data" style="width: 10%; margin-left:80%; position:absolute; margin-top:-50px; z-index:10"><i class="fa fa-pencil"></i> </a> --}}
+                                        <a href="{{route('edit_admin_branch2', $item->id)}}" class="btn btn-info" title="Edit Data" ><i class="fa fa-pencil"></i> </a>
+                                    </td>
+                                @endif
                             </tr>
                             
                             @endforeach

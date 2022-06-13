@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Recipient;
+use App\Models\Sender;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -113,7 +114,7 @@ class OrderController extends Controller
     }
 
     // Update Status 
-    public function pendingToConfirmed($id){
+    public function pendingToConfirmed_branch1($id){
         $order = Order::find($id)->update([
             'confirmed_date' => Carbon::now(),
             'status' => 'Confirmed'
@@ -125,7 +126,31 @@ class OrderController extends Controller
 
         return redirect()->route('pending1.view')->with($notification);
     }
-    public function ConfirmedToProcessing($id){
+    public function pendingToConfirmed_branch2($id){
+        $order = Order::find($id)->update([
+            'confirmed_date' => Carbon::now(),
+            'status' => 'Confirmed'
+        ]);
+        $notification = array(
+            'message' => 'Order Confirm Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('pending2.view')->with($notification);
+    }
+    public function pendingToConfirmed_branch3($id){
+        $order = Order::find($id)->update([
+            'confirmed_date' => Carbon::now(),
+            'status' => 'Confirmed'
+        ]);
+        $notification = array(
+            'message' => 'Order Confirm Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('pending3.view')->with($notification);
+    }
+    public function ConfirmedToProcessing_branch1($id){
         $order = Order::find($id)->update([
             'processing_date' => Carbon::now(),
             'status' => 'Processing'
@@ -137,7 +162,31 @@ class OrderController extends Controller
 
         return redirect()->route('confirmed1.view')->with($notification);
     }
-    public function ProcessingToArrived($id){
+    public function ConfirmedToProcessing_branch2($id){
+        $order = Order::find($id)->update([
+            'processing_date' => Carbon::now(),
+            'status' => 'Processing'
+        ]);
+        $notification = array(
+            'message' => 'Order Processing Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('confirmed2.view')->with($notification);
+    }
+    public function ConfirmedToProcessing_branch3($id){
+        $order = Order::find($id)->update([
+            'processing_date' => Carbon::now(),
+            'status' => 'Processing'
+        ]);
+        $notification = array(
+            'message' => 'Order Processing Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('confirmed3.view')->with($notification);
+    }
+    public function ProcessingToArrived_branch1($id){
         $order = Order::find($id)->update([
             'arrvied_date' => Carbon::now(),
             'status' => 'Arrived'
@@ -149,7 +198,31 @@ class OrderController extends Controller
 
         return redirect()->route('processing1.view')->with($notification);
     }
-    public function ArrivedToPicked($id){
+    public function ProcessingToArrived_branch2($id){
+        $order = Order::find($id)->update([
+            'arrvied_date' => Carbon::now(),
+            'status' => 'Arrived'
+        ]);
+        $notification = array(
+            'message' => 'Order Arrived Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('processing2.view')->with($notification);
+    }
+    public function ProcessingToArrived_branch3($id){
+        $order = Order::find($id)->update([
+            'arrvied_date' => Carbon::now(),
+            'status' => 'Arrived'
+        ]);
+        $notification = array(
+            'message' => 'Order Arrived Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('processing3.view')->with($notification);
+    }
+    public function ArrivedToPicked_branch1($id){
         $order = Order::find($id)->update([
             'picked_date' => Carbon::now(),
             'status' => 'Picked'
@@ -159,7 +232,31 @@ class OrderController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('processing1.view')->with($notification);
+        return redirect()->route('arrived1.view')->with($notification);
+    }
+    public function ArrivedToPicked_branch2($id){
+        $order = Order::find($id)->update([
+            'picked_date' => Carbon::now(),
+            'status' => 'Picked'
+        ]);
+        $notification = array(
+            'message' => 'Order Picked Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('arrived3.view')->with($notification);
+    }
+    public function ArrivedToPicked_branch3($id){
+        $order = Order::find($id)->update([
+            'picked_date' => Carbon::now(),
+            'status' => 'Picked'
+        ]);
+        $notification = array(
+            'message' => 'Order Picked Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('arrived3.view')->with($notification);
     }
 
     // Status for Admin Branch1 - from Original Branch
@@ -393,32 +490,208 @@ class OrderController extends Controller
     }
 
     // order Detail && Sub Detail
-    public function detail($id){
+     
+     // Detail for admin
+    public function detail_viewAll_branch($id){
         $order = Order::find($id);
         $orderItem = OrderItem::with('order')->where('order_id', $id)->orderBy('id', 'ASC')->get();
         $recipient = Recipient::find($order->recipient_id);
+        $sender = Sender::find($order->sender_id);
 
-        return view('backend.order.order_detail',  compact('order', 'orderItem', 'recipient'));
+        return view('backend.order.order_detail',  compact('order', 'orderItem', 'recipient', 'sender'));
     }
+    public function detail_branch1($id){
+        $order = Order::find($id);
+        $orderItem = OrderItem::with('order')->where('order_id', $id)->orderBy('id', 'ASC')->get();
+        $recipient = Recipient::find($order->recipient_id);
+        $sender = Sender::find($order->sender_id);
+
+        return view('backend.order.order_detail_branch1',  compact('order', 'orderItem', 'recipient', 'sender'));
+    }
+    public function detail_branch2($id){
+        $order = Order::find($id);
+        $orderItem = OrderItem::with('order')->where('order_id', $id)->orderBy('id', 'ASC')->get();
+        $recipient = Recipient::find($order->recipient_id);
+        $sender = Sender::find($order->sender_id);
+
+        return view('backend.order.order_detail_branch2',  compact('order', 'orderItem', 'recipient', 'sender'));
+    }
+    public function detail_branch3($id){
+        $order = Order::find($id);
+        $orderItem = OrderItem::with('order')->where('order_id', $id)->orderBy('id', 'ASC')->get();
+        $recipient = Recipient::find($order->recipient_id);
+        $sender = Sender::find($order->sender_id);
+
+        return view('backend.order.order_detail_branch3',  compact('order', 'orderItem', 'recipient', 'sender'));
+    }
+    
+
     public function sub_detail($id){
         $order = Order::find($id);
         $orderItem = OrderItem::with('order')->where('order_id', $id)->orderBy('id', 'ASC')->get();
         $recipient = Recipient::find($order->recipient_id);
+        $sender = Sender::find($order->sender_id);
 
-        return view('backend.order.order_detail_sub',  compact('order', 'orderItem', 'recipient'));
+        return view('backend.order.admin1_view.order_detail_sub',  compact('order', 'orderItem', 'recipient', 'sender'));
     }
     public function sub_detail2($id){
         $order = Order::find($id);
         $orderItem = OrderItem::with('order')->where('order_id', $id)->orderBy('id', 'ASC')->get();
         $recipient = Recipient::find($order->recipient_id);
+        $sender = Sender::find($order->sender_id);
 
-        return view('backend.order.order_detail_sub2',  compact('order', 'orderItem', 'recipient'));
+        return view('backend.order.admin2_view.order_detail_sub2',  compact('order', 'orderItem', 'recipient', 'sender'));
     }
     public function sub_detail3($id){
         $order = Order::find($id);
         $orderItem = OrderItem::with('order')->where('order_id', $id)->orderBy('id', 'ASC')->get();
         $recipient = Recipient::find($order->recipient_id);
+        $sender = Sender::find($order->sender_id);
 
-        return view('backend.order.order_detail_sub3',  compact('order', 'orderItem', 'recipient'));
+        return view('backend.order.admin3_view.order_detail_sub3',  compact('order', 'orderItem', 'recipient', 'sender'));
+    }
+
+    // OrderItem Edit & Update for Admin
+    public function admin_Edit_view_branch1($id){
+        $orderItem = OrderItem::find($id);
+        return view("backend.order.admin_update_orderItem.orderItem_edit_branch1", compact('orderItem'));   
+    }
+    public function admin_update_branch1(Request $request, $id){
+        $request->validate([
+            'parcel_name' => 'required',
+            'width_height' => 'required',
+            'weight' => 'required',
+        ]);
+        OrderItem::find($id)->update([
+            'parcel_name' => $request->parcel_name,
+            'width_height' => $request->width_height,
+            'weight' => $request->weight,
+        ]);
+        
+        $notification = array(
+            'message' => 'OrderItem Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('pending1.view')->with($notification);
+    }
+
+    public function admin_Edit_view_branch2($id){
+        $orderItem = OrderItem::find($id);
+        return view("backend.order.admin_update_orderItem.orderItem_edit_branch2", compact('orderItem'));   
+    }
+    public function admin_update_branch2(Request $request, $id){
+        $request->validate([
+            'parcel_name' => 'required',
+            'width_height' => 'required',
+            'weight' => 'required',
+        ]);
+        OrderItem::find($id)->update([
+            'parcel_name' => $request->parcel_name,
+            'width_height' => $request->width_height,
+            'weight' => $request->weight,
+        ]);
+        
+        $notification = array(
+            'message' => 'OrderItem Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('pending2.view')->with($notification);
+    }
+
+    public function admin_Edit_view_branch3($id){
+        $orderItem = OrderItem::find($id);
+        return view("backend.order.admin_update_orderItem.orderItem_edit_branch3", compact('orderItem'));   
+    }
+    public function admin_update_branch3(Request $request, $id){
+        $request->validate([
+            'parcel_name' => 'required',
+            'width_height' => 'required',
+            'weight' => 'required',
+        ]);
+        OrderItem::find($id)->update([
+            'parcel_name' => $request->parcel_name,
+            'width_height' => $request->width_height,
+            'weight' => $request->weight,
+        ]);
+        
+        $notification = array(
+            'message' => 'OrderItem Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('pending3.view')->with($notification);
+    }
+
+    // OrderItem Edit & Update for SubAdmin
+    public function SubAdmin_Edit_view_branch1($id){
+        $orderItem = OrderItem::find($id);
+        return view("backend.order.admin1_view.orderItem_edit_branch1", compact('orderItem'));   
+    }
+    public function SubAdmin_update_branch1(Request $request, $id){
+        $request->validate([
+            'parcel_name' => 'required',
+            'width_height' => 'required',
+            'weight' => 'required',
+        ]);
+        OrderItem::find($id)->update([
+            'parcel_name' => $request->parcel_name,
+            'width_height' => $request->width_height,
+            'weight' => $request->weight,
+        ]);
+        
+        $notification = array(
+            'message' => 'OrderItem Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('PendingAdmin1')->with($notification);
+    }
+    public function SubAdmin_Edit_view_branch2($id){
+        $orderItem = OrderItem::find($id);
+        return view("backend.order.admin2_view.orderItem_edit_branch2", compact('orderItem'));   
+    }
+    public function SubAdmin_update_branch2(Request $request, $id){
+        $request->validate([
+            'parcel_name' => 'required',
+            'width_height' => 'required',
+            'weight' => 'required',
+        ]);
+        OrderItem::find($id)->update([
+            'parcel_name' => $request->parcel_name,
+            'width_height' => $request->width_height,
+            'weight' => $request->weight,
+        ]);
+        
+        $notification = array(
+            'message' => 'OrderItem Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('PendingAdmin2')->with($notification);
+    }
+    public function SubAdmin_Edit_view_branch3($id){
+        $orderItem = OrderItem::find($id);
+        return view("backend.order.admin3_view.orderItem_edit_branch3", compact('orderItem'));   
+    }
+    public function SubAdmin_update_branch3(Request $request, $id){
+        $request->validate([
+            'parcel_name' => 'required',
+            'width_height' => 'required',
+            'weight' => 'required',
+        ]);
+        OrderItem::find($id)->update([
+            'parcel_name' => $request->parcel_name,
+            'width_height' => $request->width_height,
+            'weight' => $request->weight,
+        ]);
+        
+        $notification = array(
+            'message' => 'OrderItem Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('PendingAdmin3')->with($notification);
     }
 }

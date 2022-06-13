@@ -13,10 +13,12 @@ use Illuminate\Http\Request;
 class OrdersController extends Controller
 {
     public function insert(Request $request){
-
+        $invoice = mt_rand(00000, 99999);
         $order = new Order();
         $order->user_id = $request->user_id;
+        $order->sender_id = $request->sender_id;
         $order->recipient_id = $request->recipient_id;
+        $order->invoice_id = 'KNM: '.$invoice;
         $order->original_branch = $request->original_branch;
         $order->destination_branch = $request->destination_branch ;
         $order->order_date = Carbon::now()->format('d F Y');
@@ -31,11 +33,10 @@ class OrdersController extends Controller
             $orderItem->category_id = $item['category_id'];
             $orderItem->parcel_name = $item['parcel_name'];
             $orderItem->weight = $item['weight'];
-            $orderItem->width = $item['width'];
-            $orderItem->height = $item['height'];
+            $orderItem->width_height = $item['width+height'];
             $orderItem->save();
         }
-
+        // h tor nar view hai show khr moun mai
         return response('Success', 200);
 
     }
