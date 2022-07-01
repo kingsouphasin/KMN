@@ -20,7 +20,7 @@ class Order_itemsResource extends JsonResource
             'type' => 'Order_items',
             'attribute' => [
                 'parcel_name' => $this->parcel_name,
-                'width_heigth' => $this->width_heigth,
+                'width_heigth' => $this->width_height,
                 'weight' => $this->weight,
                 'order_id' => $this->order_id,
                 'category_id' => $this->category_id,

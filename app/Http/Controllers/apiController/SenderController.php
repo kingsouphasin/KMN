@@ -16,14 +16,17 @@ class SenderController extends Controller
             'sender_tel' => 'required|string',
             'sender_address' => 'required|string',
         ]);
-        $recipient = new Sender();
-        $recipient->name = $request->sender_name;
-        $recipient->surname = $request->sender_surname;
-        $recipient->tel = $request->sender_tel;
-        $recipient->address = $request->sender_address;
-        $recipient->save();
+        $sender = new Sender();
+        $sender->name = $request->sender_name;
+        $sender->surname = $request->sender_surname;
+        $sender->tel = $request->sender_tel;
+        $sender->address = $request->sender_address;
+        $sender->save();
 
-        return response('successful', 200);
+        $response = [
+            'Sender' => $sender
+        ];
+        return response($response);
     }
     public function show($id){
         $recipient = Sender::find($id);

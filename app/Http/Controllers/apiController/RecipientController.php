@@ -23,7 +23,10 @@ class RecipientController extends Controller
         $recipient->address = $request->recipient_address;
         $recipient->save();
 
-        return response('successful', 200);
+        $response = [
+            'Recipient' => $recipient
+        ];
+        return response($response);
     }
     public function show($id){
         $recipient = Recipient::find($id);

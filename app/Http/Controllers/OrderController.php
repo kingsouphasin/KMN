@@ -31,16 +31,31 @@ class OrderController extends Controller
     // All Pending order for each branch
     public function pending1(){
         $branch1 = Order::where('original_branch', '1')->where('status', 'Pending')->get();
+        $pending = Order::where('status', 'Pending')->where('created_at', '<', Carbon::now()->subDays(7))->get();
+
+        foreach ($pending as $wait) {
+            $wait->delete();
+        }
 
         return view('backend.order.order_view1', compact('branch1'));
     }
     public function pending2(){
         $branch2 = Order::where('original_branch', '2')->where('status', 'Pending')->get();
+        $pending = Order::where('status', 'Pending')->where('created_at', '<', Carbon::now()->subDays(7))->get();
+
+        foreach ($pending as $wait) {
+            $wait->delete();
+        }
 
         return view('backend.order.order_view2', compact('branch2'));
     }
     public function pending3(){
         $branch3 = Order::where('original_branch', '3')->where('status', 'Pending')->get();
+        $pending = Order::where('status', 'Pending')->where('created_at', '<', Carbon::now()->subDays(7))->get();
+
+        foreach ($pending as $wait) {
+            $wait->delete();
+        }
 
         return view('backend.order.order_view3', compact('branch3'));
     } 
@@ -262,6 +277,11 @@ class OrderController extends Controller
     // Status for Admin Branch1 - from Original Branch
     public function PendingAdmin1(){
         $branch1 = Order::where('original_branch', '1')->where('status', 'Pending')->get();
+        $pending = Order::where('status', 'Pending')->where('created_at', '<', Carbon::now()->subDays(7))->get();
+
+        foreach ($pending as $wait) {
+            $wait->delete();
+        }
 
         return view('backend.order.admin1_view.order_view1', compact('branch1'));
     }
@@ -289,6 +309,11 @@ class OrderController extends Controller
     // Status for Admin Branch2 - from Original Branch
     public function PendingAdmin2(){
         $branch1 = Order::where('original_branch', '2')->where('status', 'Pending')->get();
+        $pending = Order::where('status', 'Pending')->where('created_at', '<', Carbon::now()->subDays(7))->get();
+
+        foreach ($pending as $wait) {
+            $wait->delete();
+        }
 
         return view('backend.order.admin2_view.order_view2', compact('branch1'));
     }
@@ -316,6 +341,11 @@ class OrderController extends Controller
     // Status for Admin Branch3 - from Original Branch
     public function PendingAdmin3(){
         $branch1 = Order::where('original_branch', '3')->where('status', 'Pending')->get();
+        $pending = Order::where('status', 'Pending')->where('created_at', '<', Carbon::now()->subDays(7))->get();
+
+        foreach ($pending as $wait) {
+            $wait->delete();
+        }
 
         return view('backend.order.admin3_view.order_view3', compact('branch1'));
     }
